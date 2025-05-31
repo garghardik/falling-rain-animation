@@ -1,0 +1,79 @@
+.laser-edge {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  box-shadow: 0 0 12px #00fff7;
+  background-size: 200% 200%;
+}
+
+.top,
+.bottom {
+  height: 6px;
+  width: 100%;
+}
+
+.left,
+.right {
+  width: 6px;
+  height: 100%;
+}
+
+.top {
+  top: 0;
+  left: 0;
+  animation: moveHorizontal 2s linear infinite;
+}
+
+.bottom {
+  bottom: 0;
+  left: 0;
+  animation: moveHorizontalReverse 2s linear infinite;
+}
+
+.left {
+  top: 0;
+  left: 0;
+  animation: moveVertical 2s linear infinite;
+}
+
+.right {
+  top: 0;
+  right: 0;
+  animation: moveVerticalReverse 2s linear infinite;
+}
+
+@keyframes moveHorizontal {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+@keyframes moveHorizontalReverse {
+  0% {
+    background-position: 200% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes moveVertical {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 200%;
+  }
+}
+
+@keyframes moveVerticalReverse {
+  0% {
+    background-position: 0% 200%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}

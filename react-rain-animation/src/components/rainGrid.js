@@ -26,7 +26,7 @@ const RainGrid = () => {
     const trailLength = Math.floor(Math.random() * 4) + 2; // Trail of 2-5 drops
     const x = Math.floor(Math.random() * gridWidth);
     const speed = Math.random() * 1 + 0.5; // Speed between 0.5-1.5
-    
+
     return {
       id: Math.random(),
       x: x,
@@ -45,7 +45,7 @@ const RainGrid = () => {
 
     const waveChangeInterval = 1500;
     let newWaveColor = currentWaveColor;
-    
+
     if (waveTimerRef.current >= waveChangeInterval) {
       newWaveColor = (currentWaveColor + 1) % rainColors.length;
       setCurrentWaveColor(newWaveColor);
@@ -79,7 +79,7 @@ const RainGrid = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
-    
+
     intervalRef.current = setInterval(updateRaindrops, animationSpeed);
 
     return () => {
@@ -99,37 +99,37 @@ const RainGrid = () => {
   // Create grid with raindrops and trails
   const renderGrid = () => {
     const grid = [];
-    
+
     for (let row = 0; row < gridHeight; row++) {
       for (let col = 0; col < gridWidth; col++) {
         // Check if any raindrop trail covers this position
         const raindrop = raindrops.find(drop => {
           const dropX = Math.floor(drop.x);
           const dropY = Math.floor(drop.y);
-          
+
           // Check if this grid position is part of the raindrop's trail
-          return dropX === col && 
-                 row >= dropY - drop.trailLength + 1 && 
-                 row <= dropY && 
-                 dropY >= 0;
+          return dropX === col &&
+            row >= dropY - drop.trailLength + 1 &&
+            row <= dropY &&
+            dropY >= 0;
         });
-        
+
         let backgroundColor = 'transparent';
         let opacity = 1;
         let boxShadow = 'none';
-        
+
         if (raindrop) {
           const dropY = Math.floor(raindrop.y);
           const distanceFromHead = dropY - row;
-          
+
           // Create fading effect along the trail
           const trailOpacity = raindrop.opacity * (1 - (distanceFromHead / raindrop.trailLength));
-          
+
           backgroundColor = raindrop.color;
           opacity = Math.max(trailOpacity, 0.1);
           boxShadow = `0 0 ${6 + distanceFromHead * 2}px ${raindrop.color}${Math.floor(opacity * 255).toString(16).padStart(2, '0')}`;
         }
-        
+
         grid.push(
           <div
             key={`${row}-${col}`}
@@ -146,15 +146,16 @@ const RainGrid = () => {
         );
       }
     }
-    
+
     return grid;
   };
 
   const containerStyle = {
     padding: '24px',
-    backgroundColor: '#111827',
     minHeight: '100vh',
     fontFamily: 'Arial, sans-serif',
+    background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f4c75 50%, #3282b8 75%, #bbe1fa 100%)',
+    backgroundAttachment: 'fixed',
   };
 
   const maxWidthStyle = {
@@ -218,7 +219,7 @@ const RainGrid = () => {
   const statsStyle = {
     marginTop: '24px',
     textAlign: 'center',
-    color: '#9CA3AF',
+    color: 'white',
   };
 
   const colorIndicatorStyle = {
@@ -237,7 +238,7 @@ const RainGrid = () => {
         <h1 style={titleStyle}>
           Falling Rain Animation
         </h1>
-        
+
         {/* Controls */}
         <div style={controlsStyle}>
           <div style={controlsGridStyle}>
@@ -254,7 +255,7 @@ const RainGrid = () => {
                 style={sliderStyle}
               />
             </div>
-            
+
             <div>
               <label style={labelStyle}>
                 Grid Height: {gridHeight}
@@ -268,7 +269,7 @@ const RainGrid = () => {
                 style={sliderStyle}
               />
             </div>
-            
+
             <div>
               <label style={labelStyle}>
                 Speed: {600 - animationSpeed}ms
@@ -296,7 +297,7 @@ const RainGrid = () => {
         <div style={statsStyle}>
           <p>Active Raindrops: {raindrops.length}</p>
           <p>Grid Size: {gridWidth} × {gridHeight}</p>
-          <p>Current Wave Color: 
+          <p>Current Wave Color:
             <span style={colorIndicatorStyle}></span>
           </p>
         </div>
