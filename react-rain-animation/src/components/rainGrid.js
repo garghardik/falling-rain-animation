@@ -230,6 +230,7 @@ const RainGrid = () => {
     marginLeft: '8px',
     verticalAlign: 'middle',
     backgroundColor: rainColors[currentWaveColor],
+    border : "2px solid white"
   };
 
   return (
